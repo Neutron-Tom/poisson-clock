@@ -1,13 +1,24 @@
 
-console.log('What the heck!'+Math.random())
 
 intervals = generateIntervals();
 
-intervals.reverse();
+ring = new Howl({
+    src: ['assets/sounds/veil.mp3']
+});
 
-function popNWait(){
+// Start ringing
+popNWait();
+
+function basicBell(){
+    ring.play();
+}
+
+function popNWait(bingFcn){
     console.log('Bing!');
+
+    basicBell()
     waitTime = intervals.pop();
+    console.log('I will wait: '+waitTime);
     if (waitTime == undefined){
         return
     }
@@ -17,20 +28,22 @@ function popNWait(){
 
 
 function generateIntervals(){
-    var T = 10;
+    var T = 5*60;
     var t = 1;
-    var bells = [];
+    var intervals = [];
     var lambda;
-
+    var interval;
 
     while (t < T){
         lambda = getLambda(t,T);
         interval = getInterval(lambda);
         t = t + interval;
-        bells.push(interval);
+        intervals.push(interval);
     }
 
-    return bells;
+    // Reverse order, so we can pop off the first interval
+    intervals.reverse();
+    return intervals;
 }
 
 
@@ -49,8 +62,8 @@ function getInterval(lambda){
 
 function getLambda(t,T){
     // Function to calculate the scaling of lambda as time increases
-    startingBPM = 60; // Average number of beats per minute at start of day, 2 beats per minute
-    finalBPM = 240; // At end of day
+    startingBPM = 2; // Average number of beats per minute at start of day, 2 beats per minute
+    finalBPM = 120; // At end of day
 
     // Lambda is calculated to give an interval in seconds
     lambda = (startingBPM/60) + (finalBPM/60)*(t/T);
