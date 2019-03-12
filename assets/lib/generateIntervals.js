@@ -26,7 +26,7 @@ export function getInterval(lambda){
     // Can't take the log of zero, so we use 1-Math.Random()
     var rnd = 1 - Math.random();
 
-    // Calculate an interval time, as per: http://www.math.wsu.edu/faculty/genz/416/lect/l05-45.pdf
+    // Calculate a poisson distributed interval time, as per: http://www.math.wsu.edu/faculty/genz/416/lect/l05-45.pdf
     var interval = -1 * Math.log(rnd)/lambda;
 
     return interval;
