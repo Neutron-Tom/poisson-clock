@@ -52,18 +52,19 @@ function basicBell(){
     var randomBell = bells[Math.floor(Math.random() * bells.length)];
     // ring.play();
     randomBell.play();
+    console.log(randomBell._src);
 }
 
-export function popNWait(bingFcn){
+export function popNWait(popCircle){
     console.log('Bing!');
-
+   popCircle();
     basicBell();
     var waitTime = intervals.pop();
     console.log('I will wait: '+waitTime);
     if (waitTime == undefined){
         return
     }
-    setTimeout(popNWait,waitTime*100);
+    setTimeout(popNWait,waitTime*1000,popCircle);
 
 }
 
